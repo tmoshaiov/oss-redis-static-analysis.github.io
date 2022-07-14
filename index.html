@@ -1,0 +1,1165 @@
+<html>
+<head>
+<title>redis - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<script language="javascript" type="text/javascript">
+function load(url) {
+  if (window.XMLHttpRequest) {
+    req = new XMLHttpRequest();
+  } else if (window.ActiveXObject) {
+    req = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  if (req != undefined) {
+    req.open("GET", url, true);
+    req.send("");
+  }
+}
+</script>
+</head>
+<body>
+<h1>redis - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>moshaiov@dev-dsk-moshaiov-1b-9121a31d.eu-west-1.amazon.com</td></tr>
+<tr><th>Working Directory:</th><td>/workplace/moshaiov/redis</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 11.1.0 (Amazon Linux 2 11.1.0-1.amzn2.0.2)
+</td></tr>
+<tr><th>Date:</th><td>Wed Jul 13 14:17:53 2022</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">349</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">30</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead increment</td><td class="Q">7</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_increment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead initialization</td><td class="Q">188</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_initialization');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">14</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Branch condition evaluates to a garbage value</td><td class="Q">8</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_branch_condition_evaluates_to_a_garbage_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Called function pointer is null (null dereference)</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_called_function_pointer_is_null_null_dereference_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">43</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of undefined pointer value</td><td class="Q">7</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_undefined_pointer_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">38</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+<tr><th>Memory error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Memory leak</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_memory_error_memory_leak');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <td></td><td></td>
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>src/redis-cli.c</td><td class="DESC">cliInitHelp</td><td class="Q">831</td><td class="Q">60</td><td><a href="report-327f53.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/327f53">Report Bug</a></td><td class="Button"><a href="javascript:load('open/327f53')">Open File</a></td>
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>deps/lua/src/lua.c</td><td class="DESC">handle_script</td><td class="Q">245</td><td class="Q">15</td><td><a href="report-5b9932.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5b9932">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5b9932')">Open File</a></td>
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>src/redis-cli.c</td><td class="DESC">cliAddArgument</td><td class="Q">599</td><td class="Q">8</td><td><a href="report-ee1b64.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ee1b64">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ee1b64')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>src/acl.c</td><td class="DESC">ACLDescribeSelectorCommandRules</td><td class="Q">710</td><td class="Q">35</td><td><a href="report-18e434.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/18e434">Report Bug</a></td><td class="Button"><a href="javascript:load('open/18e434')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>src/t_zset.c</td><td class="DESC">zaddGenericCommand</td><td class="Q">1771</td><td class="Q">63</td><td><a href="report-6ba345.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6ba345">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6ba345')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">correctbytes</td><td class="Q">200</td><td class="Q">13</td><td><a href="report-ffbf59.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ffbf59">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ffbf59')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_delayed_coalesce</td><td class="Q">529</td><td class="Q">24</td><td><a href="report-7725a4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7725a4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7725a4')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_delayed_coalesce</td><td class="Q">529</td><td class="Q">24</td><td><a href="report-8aaa32.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8aaa32">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8aaa32')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">check_background_thread_creation</td><td class="Q">394</td><td class="Q">21</td><td><a href="report-9b4e5e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9b4e5e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9b4e5e')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">check_background_thread_creation</td><td class="Q">394</td><td class="Q">21</td><td><a href="report-bccc23.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bccc23">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bccc23')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_record</td><td class="Q">1725</td><td class="Q">98</td><td><a href="report-bebdcf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bebdcf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bebdcf')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread0_work</td><td class="Q">464</td><td class="Q">31</td><td><a href="report-d86824.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d86824">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d86824')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread0_work</td><td class="Q">464</td><td class="Q">31</td><td><a href="report-ee67e7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ee67e7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ee67e7')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_record</td><td class="Q">1725</td><td class="Q">98</td><td><a href="report-efa3ec.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/efa3ec">Report Bug</a></td><td class="Button"><a href="javascript:load('open/efa3ec')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_called_function_pointer_is_null_null_dereference_"><td class="DESC">Logic error</td><td class="DESC">Called function pointer is null (null dereference)</td><td>src/quicklist.c</td><td class="DESC">quicklistNext</td><td class="Q">1327</td><td class="Q">19</td><td><a href="report-1c2191.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1c2191">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1c2191')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-07aeab.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/07aeab">Report Bug</a></td><td class="Button"><a href="javascript:load('open/07aeab')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">255</td><td class="Q">1</td><td><a href="report-177f2a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/177f2a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/177f2a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/sort.c</td><td class="DESC">sortCommandGeneric</td><td class="Q">328</td><td class="Q">1</td><td><a href="report-215c29.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/215c29">Report Bug</a></td><td class="Button"><a href="javascript:load('open/215c29')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-22011e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/22011e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/22011e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-278d1f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/278d1f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/278d1f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">je_arena_reset</td><td class="Q">1127</td><td class="Q">1</td><td><a href="report-2f32ba.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2f32ba">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2f32ba')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">arena_reset</td><td class="Q">1127</td><td class="Q">1</td><td><a href="report-2f4884.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2f4884">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2f4884')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-350f24.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/350f24">Report Bug</a></td><td class="Button"><a href="javascript:load('open/350f24')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">155</td><td class="Q">1</td><td><a href="report-3984a1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3984a1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3984a1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-3de9be.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3de9be">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3de9be')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/config.c</td><td class="DESC">isValidAnnouncedHostname</td><td class="Q">2390</td><td class="Q">1</td><td><a href="report-3eb8c8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3eb8c8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3eb8c8')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">155</td><td class="Q">1</td><td><a href="report-42236a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/42236a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/42236a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-68d41d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/68d41d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/68d41d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-6fbd86.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6fbd86">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6fbd86')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-76c749.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/76c749">Report Bug</a></td><td class="Button"><a href="javascript:load('open/76c749')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-7b92c6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7b92c6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7b92c6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-92a341.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/92a341">Report Bug</a></td><td class="Button"><a href="javascript:load('open/92a341')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">155</td><td class="Q">1</td><td><a href="report-92ac21.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/92ac21">Report Bug</a></td><td class="Button"><a href="javascript:load('open/92ac21')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/defrag.c</td><td class="DESC">activeDefragCycle</td><td class="Q">1152</td><td class="Q">1</td><td><a href="report-933249.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/933249">Report Bug</a></td><td class="Button"><a href="javascript:load('open/933249')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/redis-cli.c</td><td class="DESC">clusterManagerNodeLoadInfo</td><td class="Q">4620</td><td class="Q">1</td><td><a href="report-942f55.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/942f55">Report Bug</a></td><td class="Button"><a href="javascript:load('open/942f55')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">232</td><td class="Q">1</td><td><a href="report-aa0cba.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/aa0cba">Report Bug</a></td><td class="Button"><a href="javascript:load('open/aa0cba')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/t_string.c</td><td class="DESC">incrDecrCommand</td><td class="Q">612</td><td class="Q">1</td><td><a href="report-aef047.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/aef047">Report Bug</a></td><td class="Button"><a href="javascript:load('open/aef047')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/server.c</td><td class="DESC">fillPercentileDistributionLatencies</td><td class="Q">5060</td><td class="Q">1</td><td><a href="report-b3263d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b3263d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b3263d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-bc18ce.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bc18ce">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bc18ce')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">255</td><td class="Q">1</td><td><a href="report-bd6c3a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bd6c3a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bd6c3a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">232</td><td class="Q">1</td><td><a href="report-cde6ec.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/cde6ec">Report Bug</a></td><td class="Button"><a href="javascript:load('open/cde6ec')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">155</td><td class="Q">1</td><td><a href="report-daab59.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/daab59">Report Bug</a></td><td class="Button"><a href="javascript:load('open/daab59')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-ddb8d4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ddb8d4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ddb8d4')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-e7d505.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e7d505">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e7d505')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-ecab04.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ecab04">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ecab04')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-09a062.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/09a062">Report Bug</a></td><td class="Button"><a href="javascript:load('open/09a062')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/listpack.c</td><td class="DESC">lpInsert</td><td class="Q">890</td><td class="Q">1</td><td><a href="report-2aa530.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2aa530">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2aa530')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/debug.c</td><td class="DESC">debugCommand</td><td class="Q">638</td><td class="Q">1</td><td><a href="report-46b7e1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/46b7e1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/46b7e1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/debug.c</td><td class="DESC">debugCommand</td><td class="Q">637</td><td class="Q">1</td><td><a href="report-8c9ba5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8c9ba5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8c9ba5')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-91860f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/91860f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/91860f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-dd253e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/dd253e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/dd253e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-ffab64.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ffab64">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ffab64')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-0040cc.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0040cc">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0040cc')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-02bf82.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/02bf82">Report Bug</a></td><td class="Button"><a href="javascript:load('open/02bf82')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-034cb5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/034cb5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/034cb5')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-04ab01.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/04ab01">Report Bug</a></td><td class="Button"><a href="javascript:load('open/04ab01')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-04ecd8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/04ecd8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/04ecd8')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-057b93.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/057b93">Report Bug</a></td><td class="Button"><a href="javascript:load('open/057b93')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">97</td><td class="Q">1</td><td><a href="report-067884.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/067884">Report Bug</a></td><td class="Button"><a href="javascript:load('open/067884')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-075394.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/075394">Report Bug</a></td><td class="Button"><a href="javascript:load('open/075394')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-078e17.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/078e17">Report Bug</a></td><td class="Button"><a href="javascript:load('open/078e17')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-0b79c7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0b79c7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0b79c7')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-0cffd2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0cffd2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0cffd2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-0d0ba8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0d0ba8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0d0ba8')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-0d3a7e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0d3a7e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0d3a7e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-0f5dec.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0f5dec">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0f5dec')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-10c78e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/10c78e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/10c78e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-13f473.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/13f473">Report Bug</a></td><td class="Button"><a href="javascript:load('open/13f473')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-140dc1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/140dc1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/140dc1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-15431a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/15431a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/15431a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-1742f1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1742f1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1742f1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-17eb45.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/17eb45">Report Bug</a></td><td class="Button"><a href="javascript:load('open/17eb45')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-188b6e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/188b6e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/188b6e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">je_background_thread_postfork_child</td><td class="Q">780</td><td class="Q">1</td><td><a href="report-18d36a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/18d36a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/18d36a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-1b32c1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1b32c1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1b32c1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-1c1966.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1c1966">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1c1966')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-1d3f7c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1d3f7c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1d3f7c')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-1e02b5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1e02b5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1e02b5')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-202986.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/202986">Report Bug</a></td><td class="Button"><a href="javascript:load('open/202986')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-20e326.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/20e326">Report Bug</a></td><td class="Button"><a href="javascript:load('open/20e326')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-211c81.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/211c81">Report Bug</a></td><td class="Button"><a href="javascript:load('open/211c81')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-24ebf7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/24ebf7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/24ebf7')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-250a8e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/250a8e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/250a8e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-25bbbf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/25bbbf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/25bbbf')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-28ccc9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/28ccc9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/28ccc9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-2a9002.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2a9002">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2a9002')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-2bd488.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2bd488">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2bd488')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-2be0cd.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2be0cd">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2be0cd')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-2ece4c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2ece4c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2ece4c')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3512a1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3512a1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3512a1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-36ca00.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/36ca00">Report Bug</a></td><td class="Button"><a href="javascript:load('open/36ca00')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-37fc0f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/37fc0f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/37fc0f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-380d44.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/380d44">Report Bug</a></td><td class="Button"><a href="javascript:load('open/380d44')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-38d7e6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/38d7e6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/38d7e6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3929d1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3929d1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3929d1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3ae065.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3ae065">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3ae065')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extents_remove_locked</td><td class="Q">389</td><td class="Q">1</td><td><a href="report-3bc58a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3bc58a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3bc58a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3c9315.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3c9315">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3c9315')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3cc05b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3cc05b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3cc05b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/tcache.c</td><td class="DESC">tcache_bin_flush_large</td><td class="Q">268</td><td class="Q">1</td><td><a href="report-3e012f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3e012f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3e012f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-3e8c6f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3e8c6f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3e8c6f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-3f0dda.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3f0dda">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3f0dda')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-3f1ea3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3f1ea3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3f1ea3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-4093e5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4093e5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4093e5')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-40cb9b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/40cb9b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/40cb9b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-413777.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/413777">Report Bug</a></td><td class="Button"><a href="javascript:load('open/413777')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-432b52.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/432b52">Report Bug</a></td><td class="Button"><a href="javascript:load('open/432b52')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-45bea6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/45bea6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/45bea6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-478a02.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/478a02">Report Bug</a></td><td class="Button"><a href="javascript:load('open/478a02')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-4853ad.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4853ad">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4853ad')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-4972de.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4972de">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4972de')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-4a4075.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4a4075">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4a4075')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-4d0bb0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4d0bb0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4d0bb0')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-4f1343.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4f1343">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4f1343')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-4f2586.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4f2586">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4f2586')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-50100d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/50100d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/50100d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">arena_decay_to_limit</td><td class="Q">937</td><td class="Q">1</td><td><a href="report-555603.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/555603">Report Bug</a></td><td class="Button"><a href="javascript:load('open/555603')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-576d40.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/576d40">Report Bug</a></td><td class="Button"><a href="javascript:load('open/576d40')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-583b6d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/583b6d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/583b6d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-585027.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/585027">Report Bug</a></td><td class="Button"><a href="javascript:load('open/585027')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-58a5ea.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/58a5ea">Report Bug</a></td><td class="Button"><a href="javascript:load('open/58a5ea')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-5aa5c3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5aa5c3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5aa5c3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-5cd4f1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5cd4f1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5cd4f1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-5f04c7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5f04c7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5f04c7')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-608872.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/608872">Report Bug</a></td><td class="Button"><a href="javascript:load('open/608872')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-6158c4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6158c4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6158c4')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-63ba77.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/63ba77">Report Bug</a></td><td class="Button"><a href="javascript:load('open/63ba77')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-63bad1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/63bad1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/63bad1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-6527d9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6527d9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6527d9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-673669.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/673669">Report Bug</a></td><td class="Button"><a href="javascript:load('open/673669')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-679091.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/679091">Report Bug</a></td><td class="Button"><a href="javascript:load('open/679091')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1100</td><td class="Q">1</td><td><a href="report-692d43.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/692d43">Report Bug</a></td><td class="Button"><a href="javascript:load('open/692d43')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-6c8a17.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6c8a17">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6c8a17')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-6def8d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6def8d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6def8d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-70d560.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/70d560">Report Bug</a></td><td class="Button"><a href="javascript:load('open/70d560')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-710009.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/710009">Report Bug</a></td><td class="Button"><a href="javascript:load('open/710009')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-71cf9d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/71cf9d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/71cf9d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-7524cf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7524cf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7524cf')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-78bda6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/78bda6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/78bda6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-7906d2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7906d2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7906d2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-7a239a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7a239a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7a239a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-7e4f97.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7e4f97">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7e4f97')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-80b787.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/80b787">Report Bug</a></td><td class="Button"><a href="javascript:load('open/80b787')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-84e9f3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/84e9f3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/84e9f3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-84f99a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/84f99a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/84f99a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-85fc77.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/85fc77">Report Bug</a></td><td class="Button"><a href="javascript:load('open/85fc77')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-868c06.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/868c06">Report Bug</a></td><td class="Button"><a href="javascript:load('open/868c06')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-88900a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/88900a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/88900a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-8920de.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8920de">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8920de')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-898401.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/898401">Report Bug</a></td><td class="Button"><a href="javascript:load('open/898401')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-89baed.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/89baed">Report Bug</a></td><td class="Button"><a href="javascript:load('open/89baed')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-8a119d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8a119d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8a119d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-8a4aa0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8a4aa0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8a4aa0')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-8b11cf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8b11cf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8b11cf')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-8ceadf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8ceadf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8ceadf')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">arena_decay_to_limit</td><td class="Q">937</td><td class="Q">1</td><td><a href="report-8cfdb1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8cfdb1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8cfdb1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-8d201e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8d201e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8d201e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-916190.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/916190">Report Bug</a></td><td class="Button"><a href="javascript:load('open/916190')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-9312df.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9312df">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9312df')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-93eb98.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/93eb98">Report Bug</a></td><td class="Button"><a href="javascript:load('open/93eb98')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">89</td><td class="Q">1</td><td><a href="report-94ded2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/94ded2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/94ded2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/tcache_inlines.h</td><td class="DESC">tcache_dalloc_small</td><td class="Q">181</td><td class="Q">1</td><td><a href="report-95c7d2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/95c7d2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/95c7d2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-962edb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/962edb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/962edb')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-98e259.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/98e259">Report Bug</a></td><td class="Button"><a href="javascript:load('open/98e259')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-9908ed.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9908ed">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9908ed')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-9aa5ec.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9aa5ec">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9aa5ec')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-9b93b4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9b93b4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9b93b4')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-9c05a1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9c05a1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9c05a1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-9c89a6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9c89a6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9c89a6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-9ca3ee.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9ca3ee">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9ca3ee')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-9e1280.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9e1280">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9e1280')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-9efed7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9efed7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9efed7')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-9f533b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9f533b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9f533b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a089a9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a089a9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a089a9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a0babb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a0babb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a0babb')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a21660.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a21660">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a21660')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a2a3a8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a2a3a8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a2a3a8')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a32e86.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a32e86">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a32e86')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-a338f2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a338f2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a338f2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-a3c649.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a3c649">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a3c649')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-a73fc1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a73fc1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a73fc1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-a8870e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a8870e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a8870e')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-a9484c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a9484c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a9484c')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-aad954.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/aad954">Report Bug</a></td><td class="Button"><a href="javascript:load('open/aad954')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_postfork_child</td><td class="Q">780</td><td class="Q">1</td><td><a href="report-ab2bea.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ab2bea">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ab2bea')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-ad15fe.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ad15fe">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ad15fe')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-ae1b60.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ae1b60">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ae1b60')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-ae1d4f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ae1d4f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ae1d4f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-ae512f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ae512f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ae512f')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-afa6f9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/afa6f9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/afa6f9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-afb6f3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/afb6f3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/afb6f3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">90</td><td class="Q">1</td><td><a href="report-b1c615.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b1c615">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b1c615')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-b969b0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b969b0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b969b0')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-ba049d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ba049d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ba049d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-ba1ac4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ba1ac4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ba1ac4')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-ba315d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ba315d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ba315d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-bb78bc.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bb78bc">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bb78bc')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-bd2355.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bd2355">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bd2355')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-bdbd43.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bdbd43">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bdbd43')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-bee904.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bee904">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bee904')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-bfb8c2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bfb8c2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bfb8c2')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-c27b71.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c27b71">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c27b71')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-c2db61.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c2db61">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c2db61')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-c2fa1b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c2fa1b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c2fa1b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-c3f5d7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c3f5d7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c3f5d7')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">prof_reset_ctl</td><td class="Q">2744</td><td class="Q">1</td><td><a href="report-c47238.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c47238">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c47238')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-c94289.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c94289">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c94289')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-c97f80.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c97f80">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c97f80')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-cd5882.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/cd5882">Report Bug</a></td><td class="Button"><a href="javascript:load('open/cd5882')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-ce86ce.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ce86ce">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ce86ce')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-d03f12.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d03f12">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d03f12')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-d0b578.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d0b578">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d0b578')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-d23918.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d23918">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d23918')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-d4852b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d4852b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d4852b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-d9f7d1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d9f7d1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d9f7d1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-dbc328.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/dbc328">Report Bug</a></td><td class="Button"><a href="javascript:load('open/dbc328')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-e02d8b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e02d8b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e02d8b')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-e1c787.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e1c787">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e1c787')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-e29f41.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e29f41">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e29f41')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-e2bfea.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e2bfea">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e2bfea')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-e355c3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e355c3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e355c3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-e38d75.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e38d75">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e38d75')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-e42c24.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e42c24">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e42c24')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-e44005.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e44005">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e44005')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-e63125.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e63125">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e63125')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-e7be67.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e7be67">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e7be67')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/tcache.c</td><td class="DESC">je_tcache_bin_flush_large</td><td class="Q">268</td><td class="Q">1</td><td><a href="report-e802e3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e802e3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e802e3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-e9eee1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e9eee1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e9eee1')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-eabfde.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/eabfde">Report Bug</a></td><td class="Button"><a href="javascript:load('open/eabfde')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-eae9dc.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/eae9dc">Report Bug</a></td><td class="Button"><a href="javascript:load('open/eae9dc')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-f46a09.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f46a09">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f46a09')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-f4a819.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f4a819">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f4a819')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extents_remove_locked</td><td class="Q">389</td><td class="Q">1</td><td><a href="report-f4f541.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f4f541">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f4f541')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-f63fdb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f63fdb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f63fdb')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">prof_reset_ctl</td><td class="Q">2744</td><td class="Q">1</td><td><a href="report-f76adb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f76adb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f76adb')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-f7ed2d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f7ed2d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f7ed2d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1100</td><td class="Q">1</td><td><a href="report-f85f16.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f85f16">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f85f16')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_zu</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-f9eda9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f9eda9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f9eda9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-fc3048.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/fc3048">Report Bug</a></td><td class="Button"><a href="javascript:load('open/fc3048')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/arena_stats.h</td><td class="DESC">arena_stats_sub_u64</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-ffaab9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ffaab9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ffaab9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/jemalloc/src/stats.c</td><td class="DESC">stats_print_helper</td><td class="Q">1375</td><td class="Q">1</td><td><a href="report-2bc5e9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2bc5e9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2bc5e9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/cluster.c</td><td class="DESC">clusterCommand</td><td class="Q">5293</td><td class="Q">1</td><td><a href="report-2ce450.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2ce450">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2ce450')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/hiredis/net.c</td><td class="DESC">_redisContextConnectTcp</td><td class="Q">425</td><td class="Q">1</td><td><a href="report-37003d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/37003d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/37003d')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">302</td><td class="Q">1</td><td><a href="report-5027ae.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5027ae">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5027ae')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">274</td><td class="Q">1</td><td><a href="report-6c8f94.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6c8f94">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6c8f94')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/t_zset.c</td><td class="DESC">zzlDeleteRangeByLex</td><td class="Q">1127</td><td class="Q">1</td><td><a href="report-766bf3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/766bf3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/766bf3')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-791bc6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/791bc6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/791bc6')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-7e7bc9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7e7bc9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7e7bc9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-831b0a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/831b0a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/831b0a')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sentinel.c</td><td class="DESC">sentinelHandleConfiguration</td><td class="Q">1946</td><td class="Q">1</td><td><a href="report-85e714.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/85e714">Report Bug</a></td><td class="Button"><a href="javascript:load('open/85e714')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/jemalloc/src/stats.c</td><td class="DESC">stats_print_helper</td><td class="Q">1375</td><td class="Q">1</td><td><a href="report-8a6645.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/8a6645">Report Bug</a></td><td class="Button"><a href="javascript:load('open/8a6645')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-b1b82c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b1b82c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b1b82c')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/hiredis/sds.c</td><td class="DESC">hi_sdstrim</td><td class="Q">695</td><td class="Q">1</td><td><a href="report-c424c9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c424c9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c424c9')">Open File</a></td>
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">272</td><td class="Q">1</td><td><a href="report-eebfb8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/eebfb8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/eebfb8')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/strbuf.c</td><td class="DESC">strbuf_init</td><td class="Q">53</td><td class="Q">8</td><td><a href="report-10da9e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/10da9e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/10da9e')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliInitCommandHelpEntry</td><td class="Q">684</td><td class="Q">65</td><td><a href="report-1cb3ca.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1cb3ca">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1cb3ca')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lparser.c</td><td class="DESC">breakstat</td><td class="Q">986</td><td class="Q">17</td><td><a href="report-1dba45.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1dba45">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1dba45')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_next_token</td><td class="Q">1022</td><td class="Q">6</td><td><a href="report-273596.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/273596">Report Bug</a></td><td class="Button"><a href="javascript:load('open/273596')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliOldInitHelp</td><td class="Q">455</td><td class="Q">45</td><td><a href="report-2b2336.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2b2336">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2b2336')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/config.c</td><td class="DESC">rewriteConfigRewriteLine</td><td class="Q">1236</td><td class="Q">34</td><td><a href="report-3cbfd6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3cbfd6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3cbfd6')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">__quicklistCompress</td><td class="Q">308</td><td class="Q">28</td><td><a href="report-3dff84.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3dff84">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3dff84')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/rax.c</td><td class="DESC">raxGenericInsert</td><td class="Q">892</td><td class="Q">16</td><td><a href="report-3e1ae5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3e1ae5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3e1ae5')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1657</td><td class="Q">96</td><td><a href="report-3e1d84.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3e1d84">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3e1d84')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">_quicklistListpackMerge</td><td class="Q">806</td><td class="Q">48</td><td><a href="report-432b3e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/432b3e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/432b3e')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">sdscat_orempty</td><td class="Q">532</td><td class="Q">21</td><td><a href="report-44019f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/44019f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/44019f')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">__quicklistCompress</td><td class="Q">308</td><td class="Q">29</td><td><a href="report-450df5.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/450df5">Report Bug</a></td><td class="Button"><a href="javascript:load('open/450df5')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">17</td><td><a href="report-4b3f15.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4b3f15">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4b3f15')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliConcatArguments</td><td class="Q">542</td><td class="Q">30</td><td><a href="report-4f1a15.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/4f1a15">Report Bug</a></td><td class="Button"><a href="javascript:load('open/4f1a15')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">_quicklistListpackMerge</td><td class="Q">813</td><td class="Q">56</td><td><a href="report-56cb8d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/56cb8d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/56cb8d')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">17</td><td><a href="report-594f23.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/594f23">Report Bug</a></td><td class="Button"><a href="javascript:load('open/594f23')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/t_stream.c</td><td class="DESC">xgroupCommand</td><td class="Q">2693</td><td class="Q">25</td><td><a href="report-595cd3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/595cd3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/595cd3')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliInitCommandHelpEntry</td><td class="Q">692</td><td class="Q">69</td><td><a href="report-76c785.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/76c785">Report Bug</a></td><td class="Button"><a href="javascript:load('open/76c785')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1657</td><td class="Q">96</td><td><a href="report-7849de.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7849de">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7849de')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/module.c</td><td class="DESC">RM_ListInsert</td><td class="Q">4263</td><td class="Q">10</td><td><a href="report-7b3dd9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7b3dd9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7b3dd9')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliInitCommandHelpEntry</td><td class="Q">700</td><td class="Q">71</td><td><a href="report-7c5876.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7c5876">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7c5876')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1636</td><td class="Q">106</td><td><a href="report-7c861d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7c861d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7c861d')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">getKeySizes</td><td class="Q">8201</td><td class="Q">37</td><td><a href="report-7cb443.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7cb443">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7cb443')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/replication.c</td><td class="DESC">feedReplicationBuffer</td><td class="Q">395</td><td class="Q">35</td><td><a href="report-80f0b7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/80f0b7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/80f0b7')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/config.c</td><td class="DESC">rewriteConfigRemoveOrphaned</td><td class="Q">1626</td><td class="Q">47</td><td><a href="report-874778.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/874778">Report Bug</a></td><td class="Button"><a href="javascript:load('open/874778')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lstrlib.c</td><td class="DESC">min_expand</td><td class="Q">322</td><td class="Q">18</td><td><a href="report-95b333.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/95b333">Report Bug</a></td><td class="Button"><a href="javascript:load('open/95b333')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-check-aof.c</td><td class="DESC">checkMultiPartAof</td><td class="Q">474</td><td class="Q">13</td><td><a href="report-9a3c8d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9a3c8d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9a3c8d')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">__quicklistCompress</td><td class="Q">361</td><td class="Q">64</td><td><a href="report-ad084a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ad084a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ad084a')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/t_stream.c</td><td class="DESC">xgroupCommand</td><td class="Q">2697</td><td class="Q">21</td><td><a href="report-b05edb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b05edb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b05edb')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">17</td><td><a href="report-b4a9fb.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b4a9fb">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b4a9fb')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/module.c</td><td class="DESC">moduleFreeContext</td><td class="Q">733</td><td class="Q">46</td><td><a href="report-b7e514.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b7e514">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b7e514')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">17</td><td><a href="report-c0b628.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c0b628">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c0b628')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1636</td><td class="Q">106</td><td><a href="report-c1e966.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c1e966">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c1e966')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/strbuf.h</td><td class="DESC">strbuf_ensure_null</td><td class="Q">142</td><td class="Q">10</td><td><a href="report-c7c7c7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c7c7c7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c7c7c7')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">17</td><td><a href="report-d7db08.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d7db08">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d7db08')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1666</td><td class="Q">117</td><td><a href="report-d80f81.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d80f81">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d80f81')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/t_stream.c</td><td class="DESC">streamPropagateXCLAIM</td><td class="Q">1561</td><td class="Q">34</td><td><a href="report-dec057.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/dec057">Report Bug</a></td><td class="Button"><a href="javascript:load('open/dec057')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/replication.c</td><td class="DESC">feedReplicationBuffer</td><td class="Q">384</td><td class="Q">43</td><td><a href="report-e5465f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e5465f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e5465f')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliInitGroupHelpEntries</td><td class="Q">771</td><td class="Q">49</td><td><a href="report-e54f1a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e54f1a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e54f1a')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">17</td><td><a href="report-e7c16d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e7c16d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e7c16d')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/dict.c</td><td class="DESC">dictGetRandomKey</td><td class="Q">677</td><td class="Q">21</td><td><a href="report-ec6252.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ec6252">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ec6252')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce_impl</td><td class="Q">1666</td><td class="Q">117</td><td><a href="report-f8ee02.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/f8ee02">Report Bug</a></td><td class="Button"><a href="javascript:load('open/f8ee02')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">cliInitCommandHelpEntry</td><td class="Q">688</td><td class="Q">67</td><td><a href="report-ff5128.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ff5128">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ff5128')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">26</td><td><a href="report-184cb1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/184cb1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/184cb1')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>src/t_zset.c</td><td class="DESC">zslInsert</td><td class="Q">168</td><td class="Q">25</td><td><a href="report-2744ac.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2744ac">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2744ac')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">26</td><td><a href="report-7d677c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7d677c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7d677c')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">26</td><td><a href="report-7ead51.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/7ead51">Report Bug</a></td><td class="Button"><a href="javascript:load('open/7ead51')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">26</td><td><a href="report-99a3de.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/99a3de">Report Bug</a></td><td class="Button"><a href="javascript:load('open/99a3de')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">26</td><td><a href="report-a3bff6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a3bff6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a3bff6')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">26</td><td><a href="report-c1f960.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/c1f960">Report Bug</a></td><td class="Button"><a href="javascript:load('open/c1f960')">Open File</a></td>
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">23</td><td class="Q">4</td><td><a href="report-0eed2e.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0eed2e">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0eed2e')">Open File</a></td>
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">105</td><td class="Q">2</td><td><a href="report-b7224f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b7224f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b7224f')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">ctl_refresh</td><td class="Q">1061</td><td class="Q">19</td><td><a href="report-080260.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/080260">Report Bug</a></td><td class="Button"><a href="javascript:load('open/080260')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1096</td><td class="Q">38</td><td><a href="report-09e840.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/09e840">Report Bug</a></td><td class="Button"><a href="javascript:load('open/09e840')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">38</td><td><a href="report-0a7527.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/0a7527">Report Bug</a></td><td class="Button"><a href="javascript:load('open/0a7527')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/anet.c</td><td class="DESC">anetFdToString</td><td class="Q">582</td><td class="Q">6</td><td><a href="report-134c0a.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/134c0a">Report Bug</a></td><td class="Button"><a href="javascript:load('open/134c0a')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lparser.c</td><td class="DESC">exprstat</td><td class="Q">1229</td><td class="Q">16</td><td><a href="report-1e4494.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/1e4494">Report Bug</a></td><td class="Button"><a href="javascript:load('open/1e4494')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">6</td><td><a href="report-290b40.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/290b40">Report Bug</a></td><td class="Button"><a href="javascript:load('open/290b40')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">6</td><td><a href="report-3292d0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3292d0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3292d0')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">6</td><td><a href="report-3394e2.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3394e2">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3394e2')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">198</td><td class="Q">41</td><td><a href="report-341662.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/341662">Report Bug</a></td><td class="Button"><a href="javascript:load('open/341662')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/aof.c</td><td class="DESC">loadAppendOnlyFiles</td><td class="Q">1645</td><td class="Q">18</td><td><a href="report-39105f.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/39105f">Report Bug</a></td><td class="Button"><a href="javascript:load('open/39105f')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">ctl_refresh</td><td class="Q">1061</td><td class="Q">19</td><td><a href="report-3a15ef.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3a15ef">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3a15ef')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">6</td><td><a href="report-3f2c31.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/3f2c31">Report Bug</a></td><td class="Button"><a href="javascript:load('open/3f2c31')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">198</td><td class="Q">18</td><td><a href="report-45f91b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/45f91b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/45f91b')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">38</td><td><a href="report-53d005.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/53d005">Report Bug</a></td><td class="Button"><a href="javascript:load('open/53d005')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">46</td><td><a href="report-6321cf.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6321cf">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6321cf')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_bit.c</td><td class="DESC">bit_ror</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-68a0f0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/68a0f0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/68a0f0')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">47</td><td><a href="report-69b9c1.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/69b9c1">Report Bug</a></td><td class="Button"><a href="javascript:load('open/69b9c1')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_bit.c</td><td class="DESC">bit_rol</td><td class="Q">118</td><td class="Q">1</td><td><a href="report-6cd3f7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6cd3f7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6cd3f7')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">47</td><td><a href="report-6e0195.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/6e0195">Report Bug</a></td><td class="Button"><a href="javascript:load('open/6e0195')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/t_stream.c</td><td class="DESC">streamCompareID</td><td class="Q">381</td><td class="Q">28</td><td><a href="report-716511.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/716511">Report Bug</a></td><td class="Button"><a href="javascript:load('open/716511')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">38</td><td><a href="report-754ec9.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/754ec9">Report Bug</a></td><td class="Button"><a href="javascript:load('open/754ec9')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/t_stream.c</td><td class="DESC">streamCompareID</td><td class="Q">381</td><td class="Q">19</td><td><a href="report-75ee05.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/75ee05">Report Bug</a></td><td class="Button"><a href="javascript:load('open/75ee05')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">6</td><td><a href="report-771b90.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/771b90">Report Bug</a></td><td class="Button"><a href="javascript:load('open/771b90')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">46</td><td><a href="report-806a22.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/806a22">Report Bug</a></td><td class="Button"><a href="javascript:load('open/806a22')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">198</td><td class="Q">41</td><td><a href="report-80df73.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/80df73">Report Bug</a></td><td class="Button"><a href="javascript:load('open/80df73')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">198</td><td class="Q">18</td><td><a href="report-867b1b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/867b1b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/867b1b')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_grow_retained</td><td class="Q">1392</td><td class="Q">59</td><td><a href="report-9004d4.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9004d4">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9004d4')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/t_zset.c</td><td class="DESC">zslInsert</td><td class="Q">181</td><td class="Q">27</td><td><a href="report-9e7f8b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9e7f8b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9e7f8b')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">38</td><td><a href="report-a05805.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/a05805">Report Bug</a></td><td class="Button"><a href="javascript:load('open/a05805')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">38</td><td><a href="report-ac7ea3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ac7ea3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ac7ea3')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">6</td><td><a href="report-acfb73.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/acfb73">Report Bug</a></td><td class="Button"><a href="javascript:load('open/acfb73')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_grow_retained</td><td class="Q">1392</td><td class="Q">59</td><td><a href="report-afd5e3.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/afd5e3">Report Bug</a></td><td class="Button"><a href="javascript:load('open/afd5e3')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1096</td><td class="Q">38</td><td><a href="report-b22f1b.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/b22f1b">Report Bug</a></td><td class="Button"><a href="javascript:load('open/b22f1b')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">307</td><td class="Q">46</td><td><a href="report-bfeed6.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/bfeed6">Report Bug</a></td><td class="Button"><a href="javascript:load('open/bfeed6')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">288</td><td class="Q">46</td><td><a href="report-d73d8d.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/d73d8d">Report Bug</a></td><td class="Button"><a href="javascript:load('open/d73d8d')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/bitops.c</td><td class="DESC">checkUnsignedBitfieldOverflow</td><td class="Q">316</td><td class="Q">12</td><td><a href="report-def022.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/def022">Report Bug</a></td><td class="Button"><a href="javascript:load('open/def022')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">273</td><td class="Q">38</td><td><a href="report-e87758.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/e87758">Report Bug</a></td><td class="Button"><a href="javascript:load('open/e87758')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">getinteger</td><td class="Q">285</td><td class="Q">12</td><td><a href="report-ffc8c0.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/ffc8c0">Report Bug</a></td><td class="Button"><a href="javascript:load('open/ffc8c0')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">b_unpack</td><td class="Q">327</td><td class="Q">11</td><td><a href="report-2269d7.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/2269d7">Report Bug</a></td><td class="Button"><a href="javascript:load('open/2269d7')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">b_unpack</td><td class="Q">334</td><td class="Q">11</td><td><a href="report-5e9a8c.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/5e9a8c">Report Bug</a></td><td class="Button"><a href="javascript:load('open/5e9a8c')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1232</td><td class="Q">18</td><td><a href="report-73c7df.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/73c7df">Report Bug</a></td><td class="Button"><a href="javascript:load('open/73c7df')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1229</td><td class="Q">18</td><td><a href="report-84dbb8.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/84dbb8">Report Bug</a></td><td class="Button"><a href="javascript:load('open/84dbb8')">Open File</a></td>
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1235</td><td class="Q">18</td><td><a href="report-9e8a31.html#EndPath">View Report</a></td>
+<td class="Button"><a href="report/9e8a31">Report Bug</a></td><td class="Button"><a href="javascript:load('open/9e8a31')">Open File</a></td>
+</tr>
+</tbody>
+</table>
+
+</body></html>
